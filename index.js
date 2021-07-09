@@ -1,14 +1,16 @@
 var Benchmark = require('benchmark');
 var suite = new Benchmark.Suite;
 
+const count = 50;
+
 let app = require('./koa');
-const cb = app.callback();
+const cb = app.createCallback(count);
 
 let midwayApp = require('./midway');
-const cb2 = midwayApp.callback();
+const cb2 = midwayApp.createCallback(count);
 
 let midwayRequestApp = require('./midway_request');
-const cb3 = midwayApp.callback();
+const cb3 = midwayRequestApp.createCallback(count);
 
 // add tests
 suite.add('pure koa', {

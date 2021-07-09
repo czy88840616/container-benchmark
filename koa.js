@@ -1,5 +1,6 @@
 const koa = require("koa");
 const app = new koa();
+const { randomString } = require('./util');
 
 const createMiddleware = (name) => {
   return async (ctx, next) => {
@@ -11,8 +12,11 @@ const createMiddleware = (name) => {
   }
 }
 
-app.use(createMiddleware('a'));
-app.use(createMiddleware('b'));
-app.use(createMiddleware('c'));
+exports.createCallback = (num) => {
 
-export = app;
+  for (let i = 0; i < num; i++) {
+    app.use(createMiddleware(randomString(5)));
+  }
+
+  return app.callback();
+};
